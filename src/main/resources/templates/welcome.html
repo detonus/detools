@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="pl">
+    <title>Witaj!</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <h1 th:text="#{welcome.header}">Welcome to my online tools!</h1>
+    <br />
+    <h6 th:text="#{welcome.desc}">Please select tool in upper menu.</h6>
+</div>
+</body>
+</html>
