@@ -5,6 +5,5 @@ before_install:
 - chmod +x mvnw
 env:
 - DATABASE_URL=postgres://user:password@localhost:5432/database
-- MAVEN_OPTS=-Dspring.profiles.active=travis
 script:
 - ./mvnw test -B -Dspring.profiles.active=travis
