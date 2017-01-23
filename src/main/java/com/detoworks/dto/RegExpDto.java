@@ -93,6 +93,9 @@ public class RegExpDto {
     public RegExpDto setFromModel(RegExp regExp) {
         this.setId(regExp.getId());
         this.setSubid(regExp.getSubid());
+        this.setInput(regExp.getInput());
+        this.setFindexp(regExp.getFindexp());
+        this.setReplexp(regExp.getReplexp());
         return this;
     }
 }
