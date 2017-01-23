@@ -90,4 +90,9 @@ public class RegExpDto {
         this.messages = messages;
     }
 
+    public RegExpDto setFromModel(RegExp regExp) {
+        this.setId(regExp.getId());
+        this.setSubid(regExp.getSubid());
+        return this;
+    }
 }

@@ -53,16 +53,21 @@ public class MainController {
     @RequestMapping(value = "/regexp", method = RequestMethod.POST)
     public String regExpSubmit(HttpServletRequest request, RedirectAttributes redirectAttributes,
                                @ModelAttribute RegExpDto regExpDto) {
-        dao.save(new RegExp(regExpDto));
+        RegExp regExp = new RegExp(regExpDto);
+        dao.save(regExp);
+        redirectAttributes.addAttribute("regExpDto", regExpDto.setFromModel(regExp));
         redirectAttributes.addAttribute("regExpDto", regExpDto);
         return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
     }
 
     @RequestMapping(value = "/regexp/{id}/{subid}", method = RequestMethod.POST)
     public String regExpKeySubmit(HttpServletRequest request, RedirectAttributes redirectAttributes,
-                                  @ModelAttribute RegExpDto regExpDto) {
-        dao.save(new RegExp(regExpDto));
-        redirectAttributes.addAttribute("regExpDto", regExpDto);
+                                  @PathVariable long id, @PathVariable int subid, @ModelAttribute RegExpDto regExpDto) {
+        regExpDto.setId(id);
+        regExpDto.setSubid(subid);
+        RegExp regExp = new RegExp(regExpDto);
+        dao.save(regExp);
+        redirectAttributes.addAttribute("regExpDto", regExpDto.setFromModel(regExp));
         return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
     }
 
