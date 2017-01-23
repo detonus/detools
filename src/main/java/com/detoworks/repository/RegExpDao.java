@@ -3,8 +3,8 @@ package com.detoworks.repository;
 import com.detoworks.model.*;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RegExpDao extends CrudRepository<Fiddle, FiddleKey> {
+public interface RegExpDao extends CrudRepository<RegExp, RegExpKey> {
 
-	Iterable<Fiddle> findById(Long id);
+	Iterable<RegExp> findById(Long id);
 
 }

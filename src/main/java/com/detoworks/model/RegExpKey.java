@@ -2,18 +2,18 @@ package com.detoworks.model;
 
 import java.io.Serializable;
 
-public class FiddleKey implements Serializable {
+public class RegExpKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
 	private int subid;
 	
-	public FiddleKey() {
+	public RegExpKey() {
 		super();
 	}
 
-	public FiddleKey(long id, int subid) {
+	public RegExpKey(long id, int subid) {
 		this.id = id;
 		this.subid = subid;
 	}
@@ -49,9 +49,9 @@ public class FiddleKey implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof FiddleKey))
+		if (!(obj instanceof RegExpKey))
 			return false;
-		FiddleKey other = (FiddleKey) obj;
+		RegExpKey other = (RegExpKey) obj;
 		if (id != other.id)
 			return false;
 		if (subid != other.subid)

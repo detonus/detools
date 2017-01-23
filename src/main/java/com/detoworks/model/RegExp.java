@@ -1,5 +1,7 @@
 package com.detoworks.model;
 
+import com.detoworks.dto.RegExpDto;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,13 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@IdClass(value=FiddleKey.class)
+@IdClass(value=RegExpKey.class)
 @Table(name="regexp", schema="detools")
-public class Fiddle implements Serializable {
+public class RegExp implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	public Fiddle() {
+	public RegExp() {
 		super();
 	}
    
@@ -44,14 +46,13 @@ public class Fiddle implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modify;
 
-	@Transient
-	private String output;
-
-	@Transient
-	private String outputTree;
-
-	@Transient
-	private String messages;
+	public RegExp(RegExpDto regExpDto) {
+		id = regExpDto.getId();
+		subid = regExpDto.getSubid();
+		input = regExpDto.getInput();
+		findexp = regExpDto.getFindexp();
+		replexp = regExpDto.getReplexp();
+	}
 
 	public long getId() {
 		return id;
@@ -101,27 +102,4 @@ public class Fiddle implements Serializable {
 		this.modify = modify;
 	}
 
-	public String getOutput() {
-		return output;
-	}
-
-	public void setOutput(String output) {
-		this.output = output;
-	}
-
-	public String getOutputTree() {
-		return outputTree;
-	}
-
-	public void setOutputTree(String outputTree) {
-		this.outputTree = outputTree;
-	}
-
-	public String getMessages() {
-		return messages;
-	}
-
-	public void setMessages(String messges) {
-		this.messages = messages;
-	}
 }
