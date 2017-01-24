@@ -3,7 +3,7 @@ package com.detoworks.controllers;
 import com.detoworks.dto.RegExpDto;
 import com.detoworks.model.RegExp;
 import com.detoworks.model.RegExpKey;
-import com.detoworks.repository.RegExpDao;
+import com.detoworks.service.RegExpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MainController {
 
     @Autowired
-    private RegExpDao dao;
+    private RegExpService regExpService;
 
     @RequestMapping("")
     public String homePage(Model model) {
@@ -42,7 +42,7 @@ public class MainController {
 
     @RequestMapping(value = "/regexp/{id}/{subid}", method = RequestMethod.GET)
     public String regExpKeyPage(@PathVariable long id, @PathVariable int subid, Model model, @ModelAttribute RegExpDto regExpDto) {
-        RegExp regExp = dao.findOne(new RegExpKey(id, subid));
+        RegExp regExp = regExpService.findOne(new RegExpKey(id, subid));
         if (null == regExp) {
             return "redirect:/regexp";
         }
@@ -62,7 +62,7 @@ public class MainController {
     public String regExpCalcAndSave(HttpServletRequest request, RedirectAttributes redirectAttributes,
                                @RequestParam long id, @RequestParam int subid, Model model, @ModelAttribute RegExpDto regExpDto) {
         RegExp regExp = new RegExp(regExpDto);
-        dao.save(regExp);
+        regExpService.save(regExp);
         calculate(regExpDto);
         redirectAttributes.addFlashAttribute("regExpDto", regExpDto.setFromModel(regExp));
         return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
@@ -71,9 +71,9 @@ public class MainController {
     @RequestMapping(value = "/regexp", method = RequestMethod.POST, params = { "calcAndFork" })
     public String regExpCalcAndFork(HttpServletRequest request, RedirectAttributes redirectAttributes,
                                     @RequestParam long id, @RequestParam int subid, Model model, @ModelAttribute RegExpDto regExpDto) {
-        regExpDto.setSubid(-1);
+        regExpDto.setSubid(0);
         RegExp regExp = new RegExp(regExpDto);
-        dao.save(regExp);
+        regExpService.save(regExp);
         calculate(regExpDto);
         redirectAttributes.addFlashAttribute("regExpDto", regExpDto.setFromModel(regExp));
         return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
@@ -85,12 +85,12 @@ public class MainController {
         regExpDto.setId(id);
         regExpDto.setSubid(subid);
         RegExp regExp = new RegExp(regExpDto);
-        dao.save(regExp);
+        regExpService.save(regExp);
         redirectAttributes.addFlashAttribute("regExpDto", regExpDto.setFromModel(regExp));
         return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
     }
 
-    public void calculate(RegExpDto regExpDto) {
+    private void calculate(RegExpDto regExpDto) {
 
         String output = "";
         ArrayList<String> tree = new ArrayList<String>();;
