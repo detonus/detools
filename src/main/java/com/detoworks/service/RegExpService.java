@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,7 +17,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by Banach on 2017-01-24.
  */
 @Service
-@Scope
 public class RegExpService {
 
     @Autowired
@@ -23,8 +24,17 @@ public class RegExpService {
 
     private AtomicLong idGen;
     private ConcurrentHashMap<Long, AtomicInteger> subidGen;
-    {
 
+    //setting atomic id & subid from db
+    @PostConstruct
+    public void init() {
+        RegExp regExp = regExpRepo.findTopByOrderByIdDesc();
+        if (regExp != null) {
+            idGen = new AtomicLong(regExp.getId());
+        } else {
+            idGen = new AtomicLong(0);
+        }
+        System.out.println("idGen: " + idGen.get());
     }
 
     public RegExp findOne(RegExpKey regExpKey) {
@@ -32,8 +42,9 @@ public class RegExpService {
     }
 
     public void save(RegExp regExp) {
+        //generating id & subid logic
 
-
+        regExp.setModify(new Date());
         regExpRepo.save(regExp);
     }
 }
