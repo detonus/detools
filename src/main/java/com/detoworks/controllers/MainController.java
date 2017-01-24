@@ -68,9 +68,21 @@ public class MainController {
         return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
     }
 
+    @RequestMapping(value = "/regexp", method = RequestMethod.POST, params = { "calcAndVersion" })
+    public String regExpCalcAndVersion(HttpServletRequest request, RedirectAttributes redirectAttributes,
+                                    @RequestParam long id, @RequestParam int subid, Model model, @ModelAttribute RegExpDto regExpDto) {
+        regExpDto.setSubid(0);
+        RegExp regExp = new RegExp(regExpDto);
+        regExpService.save(regExp);
+        calculate(regExpDto);
+        redirectAttributes.addFlashAttribute("regExpDto", regExpDto.setFromModel(regExp));
+        return "redirect:/regexp/"+ regExpDto.getId()+"/"+ regExpDto.getSubid();
+    }
+
     @RequestMapping(value = "/regexp", method = RequestMethod.POST, params = { "calcAndFork" })
     public String regExpCalcAndFork(HttpServletRequest request, RedirectAttributes redirectAttributes,
                                     @RequestParam long id, @RequestParam int subid, Model model, @ModelAttribute RegExpDto regExpDto) {
+        regExpDto.setId(0);
         regExpDto.setSubid(0);
         RegExp regExp = new RegExp(regExpDto);
         regExpService.save(regExp);
