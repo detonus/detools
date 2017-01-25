@@ -53,43 +53,15 @@
             </div>
             <div class="col s12">
                 <div class="row">
-                    <button class="btn waves-effect waves-teal" name="calc" th:text="#{regexppage.calc}" />
-                    <button class="btn waves-effect waves-teal" name="calcAndSave" th:text="#{regexppage.calcandsave}" />
-                    <button class="btn waves-effect waves-teal" name="calcAndVersion" th:text="#{regexppage.calcandversion}" />
-                    <button class="btn waves-effect waves-teal" name="calcAndFork" th:text="#{regexppage.calcandfork}" />
-                <!--<commandButton value="#{msgs.runLabel}"-->
-                                 <!--action="#{regExp.calculate}">-->
-                    <!--<param name="id" valueregExpddle.id}"></param>-->
-                    <!--<param name="sub" valueregExpddle.subId}"></param>-->
-                <!--</commandButton>-->
-                <!--<commandButton value="#{msgs.saveLabel}"-->
-                                 <!--rendered="#{!empty params.id}" action="#{regExp.saveNew}">-->
-                    <!--<param name="id" value="0"></param>-->
-                    <!--<param name="sub" value="0"></param>-->
-                <!--</commandButton>-->
-                <!--<commandButton value="#{msgs.updateCurrentLabel}"-->
-                                 <!--rendered="#{empty params.id}" action="#{regExp.updateCurrent}">-->
-                    <!--<param name="id" valueregExpddle.id}"></param>-->
-                    <!--<param name="sub" valueregExpddle.subId}"></param>-->
-                <!--</commandButton>-->
-                <!--<commandButton value="#{msgs.updateToNewLabel}"-->
-                                 <!--rendered="#{empty params.id}" action="#{regExp.updateToNew}">-->
-                    <!--<param name="id" valueregExpddle.id}"></param>-->
-                    <!--<param name="sub" value="0"></param>-->
-                <!--</commandButton>-->
-                <!--<commandButton value="#{msgs.forkToNewLabel}"-->
-                                 <!--rendered="#{empty params.id}" action="#{regExp.forkToNew}">-->
-                    <!--<param name="id" value="0"></param>-->
-                    <!--<param name="sub" value="0"></param>-->
-                <!--</commandButton>-->
+                    <button class="btn waves-effect waves-teal" name="calc"><span th:text="#{regexppage.calc}"></span><i class="material-icons left">cloud</i></button>
+                    <button class="btn waves-effect waves-teal" name="calcAndSave"><span th:text="#{regexppage.calcandsave}"></span><i class="material-icons left">backup</i></button>
+                    <button class="btn waves-effect waves-teal" name="calcAndVersion"><span th:text="#{regexppage.calcandversion}"></span><i class="material-icons left">save</i></button>
+                    <button class="btn waves-effect waves-teal" name="calcAndFork"><span th:text="#{regexppage.calcandfork}"></span><i class="material-icons left">add</i></button>
                 </div>
             </div>
             <div class="col s12">
                 <div class="row">
-                    <br />bean.id:
-                    <span th:text="*{id}" />
-                    bean.subid:
-                    <span th:text="*{subid}" />
+                    fiddle id: <span th:text="*{id}" />.<span th:text="*{subid}" />
                 </div>
             </div>
         </div>
