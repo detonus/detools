@@ -1,10 +1,12 @@
 package com.detoworks.service;
 
+import com.detoworks.configuration.RegExpProps;
 import com.detoworks.model.RegExp;
 import com.detoworks.model.RegExpKey;
 import com.detoworks.repository.RegExpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +27,9 @@ public class RegExpService {
     @Autowired
     private RegExpRepository regExpRepo;
 
+    @Autowired
+    private RegExpProps regExpProps;
+
     private AtomicLong idGen;
     private ConcurrentHashMap<Long, AtomicInteger> subidGen;
 
@@ -40,7 +45,8 @@ public class RegExpService {
         System.out.println("idGen: " + idGen.get());
 
         subidGen = new ConcurrentHashMap<>();
-        //all - working:
+        if (regExpProps.isLoadDbOnStart()) {
+            //all - working:
 //        StreamSupport.stream(regExpRepo.findAll().spliterator(), true).forEach((regExp) -> {
 //            RegExp regExpMaxSubid = regExpRepo.findTopByIdOrderBySubidDesc(regExp.getId());
 //            AtomicInteger maxSubid;
@@ -53,7 +59,7 @@ public class RegExpService {
 //            System.out.println("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
 //        });
 
-        //all - working:
+            //all - working:
 //        regExpRepo.findAllDistinctBy().forEach((regExp) -> {
 //            RegExp regExpMaxSubid = regExpRepo.findTopByIdOrderBySubidDesc(regExp.getId());
 //            AtomicInteger maxSubid;
@@ -66,18 +72,18 @@ public class RegExpService {
 //            System.out.println("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
 //        });
 
-        regExpRepo.findAllDistinctIdBy().forEach((id) -> {
-            RegExp regExpMaxSubid = regExpRepo.findTopByIdOrderBySubidDesc(id);
-            AtomicInteger maxSubid;
-            if (regExpMaxSubid != null) {
-                maxSubid = new AtomicInteger(regExpMaxSubid.getSubid());
-            } else {
-                maxSubid = new AtomicInteger(0);
-            }
-            subidGen.put(id, maxSubid);
-            System.out.println("idGen: " + id + " -> subidGen: " + maxSubid);
-        });
-
+            regExpRepo.findAllDistinctIdBy().forEach((id) -> {
+                RegExp regExpMaxSubid = regExpRepo.findTopByIdOrderBySubidDesc(id);
+                AtomicInteger maxSubid;
+                if (regExpMaxSubid != null) {
+                    maxSubid = new AtomicInteger(regExpMaxSubid.getSubid());
+                } else {
+                    maxSubid = new AtomicInteger(0);
+                }
+                subidGen.put(id, maxSubid);
+                System.out.println("idGen: " + id + " -> subidGen: " + maxSubid);
+            });
+        }
 
     }
 
@@ -87,13 +93,31 @@ public class RegExpService {
 
     public void save(RegExp regExp) {
         //generating id & subid logic
+        //atomic ++ & get next id
         if (regExp.getId() == 0) {
             regExp.setId(idGen.incrementAndGet());
         }
+        //synchronion on id->subid map
         if (subidGen.get(regExp.getId()) == null) {
-            subidGen.put(regExp.getId(), new AtomicInteger(0));
-            System.out.println("idGen: " + regExp.getId() + " -> subidGen: 1");
+            synchronized (subidGen) {
+                if (subidGen.get(regExp.getId()) == null) {
+                    AtomicInteger maxSubid;
+                    if (!regExpProps.isLoadDbOnStart()) {
+                        RegExp regExpMaxSubid = regExpRepo.findTopByIdOrderBySubidDesc(regExp.getId());
+                        if (regExpMaxSubid != null) {
+                            maxSubid = new AtomicInteger(regExpMaxSubid.getSubid());
+                        } else {
+                            maxSubid = new AtomicInteger(0);
+                        }
+                    } else {
+                        maxSubid = new AtomicInteger(0);
+                    }
+                    subidGen.put(regExp.getId(), maxSubid);
+                    System.out.println("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
+                }
+            }
         }
+        //atomic ++ & get next subid
         if (regExp.getSubid() == 0) {
             regExp.setSubid(subidGen.get(regExp.getId()).incrementAndGet());
         }
