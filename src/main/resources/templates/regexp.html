@@ -10,30 +10,30 @@
     <form class="col s12" action="#" th:action="@{/regexp}" th:object="${regExpDto}" method="post">
         <input type="hidden" name="id" th:field="*{id}" />
         <input type="hidden" name="subid" th:field="*{subid}" />
-        <div class="row">
+        <div class="row no-bottom-margin">
             <div class="col s12">
-                <div class="row">
+                <div class="row no-bottom-margin">
                     <div class="col s6">
-                        <div class="row">
+                        <div class="row no-bottom-margin">
                             <div class="input-field col s12">
                                 <textarea id="input" class="materialize-textarea" th:field="*{input}"></textarea>
                                 <label for="input" th:text="#{regexppage.inputLabel}">Input</label>
                                 <!--<input id="input" type="textarea" th:field="*{input}" class="validate" style="height:14em;width:95%" />-->
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row no-bottom-margin">
                             <div class="input-field col s12">
                                 <input id="findexp" type="text" th:field="*{findexp}" />
                                 <label for="findexp" th:text="#{regexppage.regexpLabel}">RegExp</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row no-bottom-margin">
                             <div class="input-field col s12">
                                 <input id="replexp" type="text" th:field="*{replexp}" />
                                 <label for="replexp" th:text="#{regexppage.replexpLabel}">ReplaceExp</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row no-bottom-margin">
                             <div class="input-field col s12">
                                 <textarea id="output" class="materialize-textarea" th:field="*{output}"></textarea>
                                 <label for="output" th:text="#{regexppage.outputLabel}">Output</label>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="col s6">
-                        <div class="row">
+                        <div class="row no-bottom-margin">
                             <div class="input-field col s12">
                                 <textarea id="outputTree" class="materialize-textarea" th:field="*{outputTree}"></textarea>
                                 <label for="outputTree" th:text="#{regexppage.matchLabel}">Output</label>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="row">
+                <div class="row no-bottom-margin">
                     <button class="btn waves-effect waves-teal" name="calc"><span th:text="#{regexppage.calc}"></span><i class="material-icons left">cloud</i></button>
                     <button class="btn waves-effect waves-teal" name="calcAndSave"><span th:text="#{regexppage.calcandsave}"></span><i class="material-icons left">backup</i></button>
                     <button class="btn waves-effect waves-teal" name="calcAndVersion"><span th:text="#{regexppage.calcandversion}"></span><i class="material-icons left">save</i></button>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="col s12">
-                <div class="row">
+                <div class="row no-bottom-margin">
                     fiddle id: <span th:text="*{id}" />.<span th:text="*{subid}" />
                 </div>
             </div>
