@@ -6,7 +6,7 @@
     <title>Detools!</title>
 </head>
 <body>
-<div class="row" layout:fragment="content">
+<div class="row no-bottom-margin" layout:fragment="content">
     <form class="col s12" action="#" th:action="@{/base64}" th:object="${base64Dto}" method="post">
         <div class="row no-bottom-margin">
             <div class="col s12">
@@ -32,7 +32,7 @@
         </div>
         <div class="row no-bottom-margin">
             <div class="col s12">
-                <div class="row">
+                <div class="row no-bottom-margin">
                     <div class="col s6">
                         <div class="right">
                             <button class="btn waves-effect waves-teal" name="encode"><span th:text="#{base64page.encode}"></span><i class="material-icons tiny left">cloud</i></button>
