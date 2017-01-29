@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="pl">
+    <title>Detools!</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <form class="col s12" action="#" th:action="@{/base64}" th:object="${base64Dto}" method="post">
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="decoded" class="materialize-textarea" th:field="*{decoded}"></textarea>
+                                <label for="decoded" th:text="#{base64page.decodedLabel}">Decoded</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="encoded" class="materialize-textarea" th:field="*{encoded}"></textarea>
+                                <label for="encoded" th:text="#{base64page.encodedLabel}">Encoded</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="row">
+                <div class="col s6">
+                    <div class="right">
+                        <button class="btn waves-effect waves-teal" name="encode"><span th:text="#{base64page.encode}"></span><i class="material-icons tiny left">cloud</i></button>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="left">
+                        <button class="btn waves-effect waves-teal" name="decode"><span th:text="#{base64page.decode}"></span><i class="material-icons tiny left">cloud</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
