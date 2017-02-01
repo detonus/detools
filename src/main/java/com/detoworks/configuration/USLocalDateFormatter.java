@@ -1,4 +1,4 @@
-package com.detoworks.controllers;
+package com.detoworks.configuration;
 
 import org.springframework.format.Formatter;
 

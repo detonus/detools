@@ -1,4 +1,4 @@
-package com.detoworks.controllers;
+package com.detoworks.configuration;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
