@@ -20,9 +20,12 @@ import java.util.ArrayList;
 @Controller
 public class RegExpController {
 
-    @Autowired
     private RegExpService regExpService;
 
+    @Autowired
+    public void setRegExpService(RegExpService regExpService) {
+        this.regExpService = regExpService;
+    }
 
     @RequestMapping(value = "/regexp", method = RequestMethod.GET)
     public String regExpPage(Model model, @ModelAttribute RegExpDto regExpDto) {

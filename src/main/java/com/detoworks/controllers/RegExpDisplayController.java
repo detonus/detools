@@ -19,8 +19,12 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/regexp/disp")
 public class RegExpDisplayController {
 
-	@Autowired
 	private RegExpRepository regExpRepo;
+
+	@Autowired
+	public void setRegExpRepo(RegExpRepository regExpRepo) {
+		this.regExpRepo = regExpRepo;
+	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public List<RegExp> getAll() throws Exception {

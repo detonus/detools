@@ -24,14 +24,20 @@ import java.util.stream.StreamSupport;
 @Service
 public class RegExpService {
 
-    @Autowired
     private RegExpRepository regExpRepo;
-
-    @Autowired
     private RegExpProps regExpProps;
-
     private AtomicLong idGen;
     private ConcurrentHashMap<Long, AtomicInteger> subidGen;
+
+    @Autowired
+    public void setRegExpRepo(RegExpRepository regExpRepo) {
+        this.regExpRepo = regExpRepo;
+    }
+
+    @Autowired
+    public void setRegExpProps(RegExpProps regExpProps) {
+        this.regExpProps = regExpProps;
+    }
 
     //setting atomic id & subid from db
     @PostConstruct
