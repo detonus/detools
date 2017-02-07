@@ -16,6 +16,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
 
@@ -23,6 +26,7 @@ import java.time.LocalDate;
  * Created by Banach on 2017-01-15.
  */
 @Configuration
+@EnableSwagger2
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
@@ -63,4 +67,11 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         return validator;
     }
 
+    @Bean
+    public Docket userApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .paths(path -> path.startsWith("/regexp/disp"))
+                .build();
+    }
 }
