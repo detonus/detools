@@ -4,4 +4,4 @@ jdk:
 before_install:
 - chmod +x mvnw
 script:
-- ./mvnw test -B -Dspring.profiles.active=travis
+- ./mvnw test -B -Dspring.profiles.active=h2
