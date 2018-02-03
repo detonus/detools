@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class NotH2EnvCondition implements Condition {
 
-    Logger logger = LogManager.getLogger(NotH2EnvCondition.class);
+    private Logger logger = LogManager.getLogger(NotH2EnvCondition.class);
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

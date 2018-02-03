@@ -4,6 +4,8 @@ import com.detoworks.configuration.RegExpProps;
 import com.detoworks.model.RegExp;
 import com.detoworks.model.RegExpKey;
 import com.detoworks.repository.RegExpRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.access.method.P;
@@ -23,6 +25,8 @@ import java.util.stream.StreamSupport;
  */
 @Service
 public class RegExpService {
+
+    private Logger logger = LogManager.getLogger(RegExpService.class);
 
     private RegExpRepository regExpRepo;
     private RegExpProps regExpProps;
@@ -48,7 +52,7 @@ public class RegExpService {
         } else {
             idGen = new AtomicLong(0);
         }
-        System.out.println("idGen: " + idGen.get());
+        logger.info("idGen: " + idGen.get());
 
         subidGen = new ConcurrentHashMap<>();
         if (regExpProps.isLoadDbOnStart()) {
@@ -62,7 +66,7 @@ public class RegExpService {
 //                maxSubid = new AtomicInteger(0);
 //            }
 //            subidGen.put(regExp.getId(), maxSubid);
-//            System.out.println("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
+//            logger.info("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
 //        });
 
             //all - working:
@@ -75,7 +79,7 @@ public class RegExpService {
 //                maxSubid = new AtomicInteger(0);
 //            }
 //            subidGen.put(regExp.getId(), maxSubid);
-//            System.out.println("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
+//            logger.info("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
 //        });
 
             regExpRepo.findAllDistinctIdBy().forEach((id) -> {
@@ -87,7 +91,7 @@ public class RegExpService {
                     maxSubid = new AtomicInteger(0);
                 }
                 subidGen.put(id, maxSubid);
-                System.out.println("idGen: " + id + " -> subidGen: " + maxSubid);
+                logger.info("idGen: " + id + " -> subidGen: " + maxSubid);
             });
         }
 
@@ -119,7 +123,7 @@ public class RegExpService {
                         maxSubid = new AtomicInteger(0);
                     }
                     subidGen.put(regExp.getId(), maxSubid);
-                    System.out.println("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
+                    logger.info("idGen: " + regExp.getId() + " -> subidGen: " + maxSubid);
                 }
             }
         }
