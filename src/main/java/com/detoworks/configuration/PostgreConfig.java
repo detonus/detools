@@ -1,12 +1,9 @@
 package com.detoworks.configuration;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,7 +15,7 @@ import java.net.URISyntaxException;
 public class PostgreConfig {
 
     @Bean
-    @Conditional(NotTestEnvCondition.class)
+    @Conditional(NotH2EnvCondition.class)
     public BasicDataSource dataSource() throws URISyntaxException {
         String envDB = System.getenv("DATABASE_URL");
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
