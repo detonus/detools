@@ -3,5 +3,6 @@ jdk:
 - oraclejdk8
 before_install:
 - chmod +x mvnw
+install: true
 script:
 - ./mvnw test -B -Dspring.profiles.active=h2
