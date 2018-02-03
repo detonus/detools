@@ -71,7 +71,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public Docket userApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .paths(path -> path.startsWith("/regexp/disp"))
+                .paths(path -> path.startsWith("/regexp/disp") || path.startsWith("/stats"))
                 .build();
     }
 }
