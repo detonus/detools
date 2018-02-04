@@ -30,6 +30,8 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.10.RELEASE'
     compile 'commons-io:commons-io:2.5'
     compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.5'
+    compile 'org.postgresql:postgresql:9.4.1212'
+    compile 'io.jsonwebtoken:jjwt:0.9.0'
     compile group: 'com.h2database', name: 'h2', version:'1.4.196'
     compile group: 'commons-dbcp', name: 'commons-dbcp', version:'1.4'
     compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
@@ -50,6 +52,10 @@ configurations {
 
 bootRun {
     systemProperties = System.properties
+}
+
+test {
+    systemProperty "spring.profiles.active", "h2"
 }
 
 task h2 <<{
