@@ -6,4 +6,4 @@ before_install:
 - chmod +x gradlew
 install: true
 script:
-- ./gradlew check -Dspring.profiles.active=h2
+- ./gradlew test -Dspring.profiles.active=h2
