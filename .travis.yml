@@ -3,6 +3,7 @@ jdk:
 - oraclejdk8
 before_install:
 - chmod +x mvnw
+- chmod +x gradlew
 install: true
 script:
-- ./mvnw test -B -Dspring.profiles.active=h2
+- ./gradlew check -Dspring.profiles.active=h2
