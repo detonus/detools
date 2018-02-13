@@ -1,6 +1,7 @@
 package com.detoworks.model;
 
 import com.detoworks.dto.RegExpDto;
+//import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +18,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @IdClass(value=RegExpKey.class)
 @Table(name="regexp", schema="detools")
+//@Cacheable
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class RegExp implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
